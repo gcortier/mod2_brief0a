@@ -1,0 +1,5 @@
+sources
+.venv
+__pycache__
+mlartifacts
+mlruns
