@@ -1,4 +1,4 @@
-
+# Mod 3 Exposer une base de données relationnelle via une API REST et entrainement d'un modèle
 ###### Le `.venv` 
 
 
@@ -36,8 +36,7 @@ pip install -r requirements.txt
 
 .
 ├── data/
-│   ├── df_new.csv
-│   └── df_old.csv
+│   ├── data-all-684bf775c031b265646213.csv
 ├── models/
 │   ├── models.py
 │   ├── model_2024_08.pkl
