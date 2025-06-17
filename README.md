@@ -89,6 +89,11 @@ On espère que cette petite virée dans notre projet t'a plu. N'hésite pas à j
 pip freeze > requirements.txt
 ```
 
+- ### Installations des requis sqlAlchemy: 
+```bash
+pip install psycopg2-binary
+```
+
 - ### Installations des requis loguru: 
 ```bash
 pip install loguru
@@ -184,50 +189,12 @@ wsl --unregister docker-desktop
 wsl --unregister docker-desktop-data
 ```
 
-## Annexes / data
+## setup docker postgresql
+```powershell
+docker compose -f docker-compose-postgres.yml up -d
+```
 
-les lignes et colonnes comportant de nombreuses valeurs manquantes
-historique_credits
-score_credit
-loyer_mensuel (pas sur)
-montant_pret
-
-
-
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 10000 entries, 0 to 9999
-Data columns (total 9 columns):
- #   Column              Non-Null Count  Dtype  
----  ------              --------------  -----  
- 0   age                 10000 non-null  int64  
- 1   taille              10000 non-null  float64
- 2   poids               10000 non-null  float64 >30
- 3   revenu_estime_mois  10000 non-null  int64  
- 4   historique_credits  4816 non-null   float64
- 5   risque_personnel    10000 non-null  float64
- 6   score_credit        4716 non-null   float64
- 7   loyer_mensuel       7167 non-null   float64
- 8   montant_pret        3354 non-null   float64
-dtypes: float64(7), int64(2)
-memory usage: 703.2 KB
-
-	age	taille	poids	revenu_estime_mois	historique_credits	risque_personnel	score_credit	loyer_mensuel	montant_pret
-count	10000.000000	10000.000000	10000.000000	10000.000000	4816.000000	10000.000000	4716.000000	7167.000000	3354.000000
-mean	46.106500	169.937380	69.905970	2523.932100	2.493771	0.501844	577.158609	5237.327875	39917.561121
-std	16.746797	9.939576	15.113793	1136.550751	1.699540	0.288532	158.312648	3761.487318	1802.916718
-min	18.000000	127.900000	7.600000	500.000000	0.000000	0.000000	300.000000	-173.430000	500.000000
-25%	32.000000	163.100000	59.900000	1719.000000	1.000000	0.260000	442.000000	1004.510000	40000.000000
-50%	46.000000	169.900000	69.800000	2509.500000	3.000000	0.500000	579.000000	5000.000000	40000.000000
-75%	61.000000	176.700000	80.000000	3287.000000	4.000000	0.750000	716.000000	10000.000000	40000.000000
-max	75.000000	206.200000	126.800000	6819.000000	5.000000	1.000000	849.000000	10000.000000	40000.000000
-
-
-
-
-
-# Analyse Ethiques
-- Virer nom prenom
-- Virer le sexe ?
-- Situation Familiale => catégorielle vers numériques
-- Créer des catégories pour les régions géographiques
-- 
+## Etape clen du jeu de données
+- Utilisation du notebook créé lors du module 2 pour créer un jeu de données propre.
+- Le jeu de données est stocké dans le dossier `data/` sous le nom `data-all-684bf775c031b265646213.csv`.
+- Le notebook est disponible dans le dossier `notebooks/` sous le nom `ethique_data_cleaning.ipynb`.

@@ -25,12 +25,12 @@ import pandas as pd
 from os.path import join as join
 import missingno as msno
     
+from datetime import datetime
 
 ## Base initialisation for Loguru and FastAPI
 from myapp_base import setup_loguru, create_app
-from datetime import datetime
-
 logger = setup_loguru("logs/alchemy_api.log")
+
 app = create_app()
 today_str = datetime.now().strftime("%Y%m%d_%H%M")
 
@@ -80,67 +80,7 @@ artifact_path = "linear_regression_model"
 
 prediction_model = get_last_run_id()  # Variable to hold the prediction model
 
-def MLFlow_train_model(options, model, X, y, X_val=None, y_val=None, epochs=50, batch_size=32, verbose=0):
-    """
-    Entraîne un modèle et le log le loss et ou le model.
-    Args:
-        options (dict): Options pour l'entraînement et le logging.
-        model: Le modèle à entraîner.
-        X (DataFrame): Les données d'entrée.
-        y (Series): Les étiquettes cibles.
-        X_val (DataFrame, optional): Les données de validation. Si None, pas de validation.
-        y_val (Series, optional): Les étiquettes cibles de validation. Si None, pas de validation.
-        epochs (int): Nombre d'époques pour l'entraînement.
-        batch_size (int): Taille du batch pour l'entraînement.
-        verbose (int): Niveau de verbosité pour l'entraînement.
-        Returns:
-        model: Le modèle entraîné.
-        hist: L'historique de l'entraînement.
-    """
-    model, hist = train_model(model, X, y, X_val, y_val, epochs, batch_size, verbose)
-    
-    step_base_name = options.get("step_base_name", f"model_{today_str}_ml_{options.get('step', 'default')}")
-    if options.get("save_model", False):
-        # sauvegarder le modèle
-        joblib.dump(model, join('models', f'{step_base_name}.pkl'))
-        logger.info(f"Model saved as {step_base_name}.pkl")
-        
-    if options.get("save_cost", False):
-        # sauvegarder le drawloss
-        draw_loss(hist, join('figures',f'{step_base_name}.jpg'))
-        
-    
-    return model, hist
-
-def MLFlow_load_model(runId, artifactPath="linear_regression_model"):
-    """
-    Load a model from MLFlow using the run ID.
-    
-    Parameters:
-    runId (str): The ID of the MLFlow run from which to load the model.
-    
-    Returns:
-    model: The loaded model.
-    """
-    model_uri = f"runs:/{runId}/{artifactPath}"
-    model = mlflow.sklearn.load_model(model_uri)
-    return model
-
-def MLFlow_make_prediction(model, X):
-    """
-    Make predictions using a loaded model.
-    
-    Parameters:
-    model: The loaded model.
-    X: The input features for which to make predictions.
-    
-    Returns:
-    preds: The predictions made by the model.
-    """
-    preds = model.predict(X)
-    # print("Predictions : ", preds)
-    return preds
-    
+from mlflow_utils import MLFlow_train_model, MLFlow_load_model, MLFlow_make_prediction
 
 ### Function to train and log a model iteratively in MLFlow
 def train_and_log_iterative(run_idx, info, run_id=None):
@@ -267,7 +207,8 @@ def analyse_dataset():
     # Sauvegarde du dataset nettoyé
     collisions.to_csv(join('data', 'df_cleaned.csv'), index=False)
      
-       
+
+
              
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "train":
@@ -296,6 +237,10 @@ async def health(request: Request):
     """
     logger.info(f"Route '{request.url.path}' called by {request.client.host}")
     return {"status": "healthy", "message": "API is running"}
+
+
+
+
 
 
 class PredictRequest(BaseModel):
