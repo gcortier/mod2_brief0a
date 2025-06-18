@@ -1,0 +1,16 @@
+2025-06-17T14:22:50.571181+0200 INFO Toutes les tables ont été supprimées.
+2025-06-17T14:22:50.590182+0200 INFO Toutes les tables ont été recréées.
+2025-06-17T14:23:51.218827+0200 INFO Table alembic_version réinitialisée avec succès.
+2025-06-17T14:31:50.660348+0200 INFO Données du fichier CSV 'data/df_data_all_cleaned.csv' insérées avec succès dans la base de données.
+2025-06-17T15:14:54.718716+0200 INFO Toutes les tables ont été supprimées.
+2025-06-17T15:15:10.598432+0200 INFO Données du fichier CSV 'data/df_data_all_cleaned.csv' insérées avec succès dans la base de données.
+2025-06-18T12:04:09.187303+0200 INFO Toutes les tables ont été supprimées.
+2025-06-18T12:23:59.029636+0200 INFO Données du fichier CSV 'data/df_data_all_cleaned.csv' insérées avec succès dans la base de données.
+2025-06-18T15:00:43.092623+0200 INFO Toutes les tables ont été supprimées.
+2025-06-18T15:00:43.531781+0200 INFO Données du fichier CSV 'data/df_data_all_complete_cleaned.csv' insérées avec succès dans la base de données.
+2025-06-18T15:16:46.015859+0200 INFO Toutes les tables ont été supprimées.
+2025-06-18T15:18:18.617182+0200 INFO Début de l'injection du CSV : data/df_data_all_complete_cleaned.csv
+2025-06-18T15:18:18.637184+0200 INFO CSV chargé avec 9409 lignes et colonnes : ['age', 'taille', 'poids', 'sport_licence', 'niveau_etude', 'region', 'smoker', 'nb_enfants', 'quotient_caf', 'revenu_estime_mois', 'situation_familiale', 'risque_personnel', 'loyer_mensuel', 'montant_pret']
+2025-06-18T15:18:18.638185+0200 INFO Vérification/création des tables terminée.
+2025-06-18T15:18:18.935875+0200 INFO Données du fichier CSV 'data/df_data_all_complete_cleaned.csv' insérées avec succès dans la base de données.
+2025-06-18T15:18:18.938879+0200 INFO Nombre total de lignes dans la table après insertion : 9409

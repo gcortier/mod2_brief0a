@@ -1,0 +1,65 @@
+2025-06-17T11:32:42.751923+0200 INFO Route '/clients'
+2025-06-17T11:32:42.757927+0200 ERROR Erreur lors du réentraînement: (psycopg2.ProgrammingError) invalid dsn: invalid connection option "check_same_thread"
+
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-06-17T11:36:39.004028+0200 INFO Route '/clients'
+2025-06-17T11:36:39.048670+0200 INFO Nombre de clients récupérés: 6
+2025-06-17T11:47:54.505331+0200 INFO Route '/clients'
+2025-06-17T11:47:54.511337+0200 ERROR Erreur lors du réentraînement: (sqlite3.OperationalError) no such table: clients
+[SQL: SELECT clients.id AS clients_id, clients.nom AS clients_nom 
+FROM clients]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-17T11:49:51.775596+0200 INFO Route '/clients'
+2025-06-17T11:49:51.780595+0200 ERROR Erreur lors du réentraînement: (sqlite3.OperationalError) no such table: clients
+[SQL: SELECT clients.id AS clients_id, clients.nom AS clients_nom 
+FROM clients]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-17T11:51:32.022494+0200 INFO Route '/clients'
+2025-06-17T11:51:32.027495+0200 ERROR Erreur lors du réentraînement: (sqlite3.OperationalError) no such table: clients
+[SQL: SELECT clients.id AS clients_id, clients.nom AS clients_nom 
+FROM clients]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-17T11:51:45.653901+0200 INFO Route '/clients'
+2025-06-17T11:51:45.654899+0200 ERROR Erreur lors du réentraînement: (sqlite3.OperationalError) no such table: clients
+[SQL: SELECT clients.id AS clients_id, clients.nom AS clients_nom 
+FROM clients]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-17T11:52:49.300384+0200 INFO Route '/clients'
+2025-06-17T11:52:49.305383+0200 ERROR Erreur lors du réentraînement: (sqlite3.OperationalError) no such table: clients
+[SQL: SELECT clients.id AS clients_id, clients.nom AS clients_nom 
+FROM clients]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-17T11:54:36.104064+0200 INFO Route '/clients'
+2025-06-17T11:54:36.111894+0200 ERROR Erreur lors du réentraînement: (sqlite3.OperationalError) no such table: clients
+[SQL: SELECT clients.id AS clients_id, clients.nom AS clients_nom 
+FROM clients]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-06-17T11:55:31.306549+0200 INFO Route '/clients'
+2025-06-17T11:55:31.312549+0200 INFO Nombre de clients récupérés: 6
+2025-06-17T12:10:57.102131+0200 INFO Route '/clients'
+2025-06-17T12:10:57.110129+0200 INFO Nombre de clients récupérés: 6
+2025-06-17T14:02:47.664718+0200 INFO Route '/loandata'
+2025-06-17T14:02:47.865088+0200 INFO Nombre d'entrées LoanData récupérées: 9947
+2025-06-17T14:05:38.867479+0200 INFO Route '/loandata'
+2025-06-17T14:05:38.872477+0200 INFO Nombre d'entrées LoanData récupérées: 15
+2025-06-17T14:13:25.340145+0200 INFO Route '/loandata' avec id=None
+2025-06-17T14:13:34.664982+0200 INFO Route '/loandata' avec id=None
+2025-06-17T14:13:54.625937+0200 INFO Route '/loandata' avec id=42
+2025-06-17T14:16:20.178642+0200 INFO Route '/loandata'
+2025-06-17T14:16:20.191901+0200 INFO Nouvelle entrée LoanData ajoutée avec l'id: 42424242
+2025-06-17T14:16:27.950760+0200 INFO Route '/loandata' avec id=42424242
+2025-06-17T14:17:18.823252+0200 INFO Route '/loandata' avec id=None
+2025-06-17T14:23:57.473333+0200 INFO Route '/loandata' avec id=42424242
+2025-06-17T14:23:57.481334+0200 ERROR Erreur lors de la récupération des données LoanData: 404: LoanData avec id=42424242 introuvable
+2025-06-17T14:31:32.941898+0200 INFO Route '/loandata' avec id=2
+2025-06-17T14:31:32.944899+0200 ERROR Erreur lors de la récupération des données LoanData: 404: LoanData avec id=2 introuvable
+2025-06-17T14:32:53.382320+0200 INFO Route '/loandata' avec id=2
+2025-06-17T15:21:02.906252+0200 INFO Route '/loandata' avec id=2
+2025-06-18T12:25:54.512972+0200 INFO Route '/loandata' avec id=2
+2025-06-18T12:26:01.452888+0200 INFO Route '/loandata' avec id=None
+2025-06-18T14:35:18.858311+0200 INFO Route '/loandata' avec id=None
+2025-06-18T15:01:22.501643+0200 INFO Route '/loandata' avec id=None
+2025-06-18T15:02:40.487735+0200 INFO Route '/loandata' avec id=None
+2025-06-18T15:16:50.610574+0200 INFO Route '/loandata' avec id=None
+2025-06-18T15:20:32.553696+0200 INFO Route '/loandata' avec id=None
+2025-06-18T15:42:31.953895+0200 INFO Route '/loandata' avec id=None

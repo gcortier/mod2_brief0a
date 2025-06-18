@@ -1,0 +1,155 @@
+2025-06-17T15:03:31.026266+0200 INFO Analyse des données en cours...
+2025-06-17T15:03:31.119410+0200 INFO Dataset shape after cleaning: (9947, 13)
+2025-06-17T15:07:16.915697+0200 INFO Analyse des données en cours...
+2025-06-17T15:07:16.959942+0200 INFO Dataset shape after cleaning: (9947, 12)
+2025-06-17T15:21:46.788847+0200 INFO Starting training iteration 0 of 3
+2025-06-17T15:21:46.890576+0200 INFO No previous model_id, creating new model.
+2025-06-17T15:22:14.319075+0200 INFO Model performances: {'MSE': 81355237.34600537, 'MAE': 6523.272792967255, 'R²': 0.3416312081118916}
+2025-06-17T15:49:32.060221+0200 INFO Starting training iteration 0 of 3
+2025-06-17T15:49:32.124005+0200 INFO No previous model_id, creating new model.
+2025-06-17T15:49:56.451832+0200 INFO Model saved as model_20250617_1549_0_None.pkl
+2025-06-17T15:49:57.087310+0200 INFO Model performances: {'MSE': 81277296.86720337, 'MAE': 6526.477155392958, 'R²': 0.3422619429058892}
+2025-06-17T16:00:28.804008+0200 INFO Starting training iteration 0 of 3
+2025-06-17T16:01:43.340448+0200 INFO Starting training iteration 0 of 3
+2025-06-17T16:02:14.780090+0200 INFO Starting training iteration 0 of 3
+2025-06-17T16:02:14.835541+0200 INFO No previous model_id, creating new model.
+2025-06-17T16:02:40.262820+0200 INFO Model saved as model_20250617_1602_0_None.pkl
+2025-06-17T16:02:40.820980+0200 INFO Model performances: {'MSE': 77905066.6685526, 'MAE': 6507.3293356193935, 'R²': 0.2934987342570754}
+2025-06-17T16:22:49.679688+0200 INFO Starting training iteration 0 of 3
+2025-06-17T16:22:49.760686+0200 INFO No previous model_id, creating new model.
+2025-06-17T16:23:14.364375+0200 INFO Model saved as model_20250617_1622_0_None.pkl
+2025-06-17T16:23:14.865147+0200 INFO Model performances: {'MSE': 77789211.13442418, 'MAE': 6495.3242281577495, 'R²': 0.29454939867474783}
+2025-06-17T16:23:14.865147+0200 INFO Starting training iteration 1 of 3
+2025-06-17T16:23:14.910679+0200 INFO Loading model from previous model_id: model_20250617_1622_0_None
+2025-06-17T16:33:05.804381+0200 INFO Starting training iteration 0 of 3
+2025-06-17T16:33:05.953913+0200 INFO No previous model_id, creating new model.
+2025-06-17T16:33:29.939197+0200 INFO Model saved as model_20250617_1633_0_None.pkl
+2025-06-17T16:33:30.478290+0200 INFO Model performances: {'MSE': 77740714.18080914, 'MAE': 6519.0057395440435, 'R²': 0.2949892052313544}
+2025-06-17T16:33:44.812849+0200 INFO Run 1 terminé, run_id=3c30a1c37d50488f8f8a46a1c74716e1
+2025-06-17T16:33:44.850498+0200 INFO Starting training iteration 1 of 3
+2025-06-17T16:33:44.964976+0200 INFO Loading model from previous model_id: 3c30a1c37d50488f8f8a46a1c74716e1
+2025-06-17T16:34:09.403792+0200 INFO Model saved as model_20250617_1633_1_3c30a1c37d50488f8f8a46a1c74716e1.pkl
+2025-06-17T16:34:09.869229+0200 INFO Model performances: {'MSE': 77986498.01305161, 'MAE': 6579.372319806071, 'R²': 0.29276025407318085}
+2025-06-17T16:34:22.383053+0200 INFO Run 2 terminé, run_id=dd60ad98aae74c5a9a1d9c01966bde8d
+2025-06-17T16:34:22.418056+0200 INFO Starting training iteration 2 of 3
+2025-06-17T16:34:22.467055+0200 INFO Loading model from previous model_id: dd60ad98aae74c5a9a1d9c01966bde8d
+2025-06-17T16:34:47.427539+0200 INFO Model saved as model_20250617_1633_2_dd60ad98aae74c5a9a1d9c01966bde8d.pkl
+2025-06-17T16:34:48.002617+0200 INFO Model performances: {'MSE': 77865890.09020752, 'MAE': 6548.113120144632, 'R²': 0.29385401669725386}
+2025-06-17T16:34:59.075330+0200 INFO Run 3 terminé, run_id=d780b70a1891444483965e86b3ca05fc
+2025-06-17T16:34:59.107331+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: d780b70a1891444483965e86b3ca05fc (sauvegardé dans models/current_model.json)
+2025-06-18T09:48:43.951040+0200 INFO Analyse des données en cours...
+2025-06-18T09:48:44.055732+0200 INFO Dataset shape after cleaning: (9947, 14)
+2025-06-18T09:49:08.038895+0200 INFO Starting training iteration 0 of 3
+2025-06-18T09:49:08.253413+0200 INFO Loading model from previous model_id: d780b70a1891444483965e86b3ca05fc
+2025-06-18T09:49:40.481427+0200 INFO Model saved as model_20250618_0949_0_d780b70a1891444483965e86b3ca05fc.pkl
+2025-06-18T09:49:42.058464+0200 INFO Model performances: {'MSE': 78035628.17972818, 'MAE': 6571.383966757943, 'R²': 0.29231470506812285}
+2025-06-18T09:49:58.684364+0200 INFO Run 1 terminé, run_id=0d48a22905794df18e8ee2fa3dce1283
+2025-06-18T09:49:58.721367+0200 INFO Starting training iteration 1 of 3
+2025-06-18T09:49:58.781782+0200 INFO Loading model from previous model_id: 0d48a22905794df18e8ee2fa3dce1283
+2025-06-18T09:50:27.164216+0200 INFO Model saved as model_20250618_0949_1_0d48a22905794df18e8ee2fa3dce1283.pkl
+2025-06-18T09:50:27.766484+0200 INFO Model performances: {'MSE': 78230222.7009932, 'MAE': 6583.603518909527, 'R²': 0.29054997677175554}
+2025-06-18T09:50:39.806417+0200 INFO Run 2 terminé, run_id=8edb16bee9614190b9d5d4c1850e0eee
+2025-06-18T09:50:39.835510+0200 INFO Starting training iteration 2 of 3
+2025-06-18T09:50:39.951689+0200 INFO Loading model from previous model_id: 8edb16bee9614190b9d5d4c1850e0eee
+2025-06-18T09:51:11.187720+0200 INFO Model saved as model_20250618_0949_2_8edb16bee9614190b9d5d4c1850e0eee.pkl
+2025-06-18T09:51:11.729304+0200 INFO Model performances: {'MSE': 78515249.14538676, 'MAE': 6605.475683497172, 'R²': 0.2879651443295861}
+2025-06-18T09:51:22.736244+0200 INFO Run 3 terminé, run_id=8f6c4d91abf24581b2c6fcdcc092f531
+2025-06-18T09:51:22.771390+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 8f6c4d91abf24581b2c6fcdcc092f531 (sauvegardé dans models/current_model.json)
+2025-06-18T09:51:58.994888+0200 INFO Analyse des données en cours...
+2025-06-18T09:51:59.035892+0200 INFO Dataset shape after cleaning: (9947, 14)
+2025-06-18T09:53:35.806115+0200 INFO Starting training iteration 0 of 3
+2025-06-18T09:53:35.873358+0200 INFO Loading model from previous model_id: 8f6c4d91abf24581b2c6fcdcc092f531
+2025-06-18T09:54:04.847335+0200 INFO Model saved as model_20250618_0953_0_8f6c4d91abf24581b2c6fcdcc092f531.pkl
+2025-06-18T09:54:05.412150+0200 INFO Model performances: {'MSE': 78743391.94684875, 'MAE': 6604.778393016408, 'R²': 0.2858961751996476}
+2025-06-18T09:54:18.751255+0200 INFO Run 1 terminé, run_id=7c9ad9a484ae450a87f76bcf7becc152
+2025-06-18T09:54:18.779892+0200 INFO Starting training iteration 1 of 3
+2025-06-18T09:54:18.834894+0200 INFO Loading model from previous model_id: 7c9ad9a484ae450a87f76bcf7becc152
+2025-06-18T09:54:43.573735+0200 INFO Model saved as model_20250618_0953_1_7c9ad9a484ae450a87f76bcf7becc152.pkl
+2025-06-18T09:54:43.956591+0200 INFO Model performances: {'MSE': 78928033.85274701, 'MAE': 6607.181492241206, 'R²': 0.28422170464458973}
+2025-06-18T09:54:55.837575+0200 INFO Run 2 terminé, run_id=08e6cb3d6ba4481391eccb67e20cfdd7
+2025-06-18T09:54:55.874196+0200 INFO Starting training iteration 2 of 3
+2025-06-18T09:54:55.931814+0200 INFO Loading model from previous model_id: 08e6cb3d6ba4481391eccb67e20cfdd7
+2025-06-18T09:55:20.053751+0200 INFO Model saved as model_20250618_0953_2_08e6cb3d6ba4481391eccb67e20cfdd7.pkl
+2025-06-18T09:55:20.504399+0200 INFO Model performances: {'MSE': 79073457.31710449, 'MAE': 6593.3009392247595, 'R²': 0.2829028961764012}
+2025-06-18T09:55:31.555616+0200 INFO Run 3 terminé, run_id=c50818be7dae427db4103d08eb6b5045
+2025-06-18T09:55:31.586791+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: c50818be7dae427db4103d08eb6b5045 (sauvegardé dans models/current_model.json)
+2025-06-18T09:59:27.377617+0200 INFO Starting training iteration 0 of 3
+2025-06-18T09:59:27.440620+0200 INFO No previous model_id, creating new model.
+2025-06-18T09:59:51.017223+0200 INFO Model saved as model_20250618_0959_0_None.pkl
+2025-06-18T09:59:51.721322+0200 INFO Model performances: {'MSE': 77807479.6503812, 'MAE': 6521.4265584582145, 'R²': 0.29438372614279573}
+2025-06-18T10:00:03.058143+0200 INFO Run 1 terminé, run_id=f3c90e550caa43938ff81dda9da61ca9
+2025-06-18T10:00:03.086141+0200 INFO Starting training iteration 1 of 3
+2025-06-18T10:00:03.135791+0200 INFO Loading model from previous model_id: f3c90e550caa43938ff81dda9da61ca9
+2025-06-18T10:00:28.981338+0200 INFO Model saved as model_20250618_0959_1_f3c90e550caa43938ff81dda9da61ca9.pkl
+2025-06-18T10:00:29.424591+0200 INFO Model performances: {'MSE': 77786799.7113684, 'MAE': 6553.437977004116, 'R²': 0.2945712672580635}
+2025-06-18T10:00:40.829975+0200 INFO Run 2 terminé, run_id=9899280efe794f4db6925d55590df3ad
+2025-06-18T10:00:40.857976+0200 INFO Starting training iteration 2 of 3
+2025-06-18T10:00:40.907696+0200 INFO Loading model from previous model_id: 9899280efe794f4db6925d55590df3ad
+2025-06-18T10:01:05.577899+0200 INFO Model saved as model_20250618_0959_2_9899280efe794f4db6925d55590df3ad.pkl
+2025-06-18T10:01:06.222197+0200 INFO Model performances: {'MSE': 77741963.04267955, 'MAE': 6536.806799481834, 'R²': 0.2949778796201983}
+2025-06-18T10:01:16.973470+0200 INFO Run 3 terminé, run_id=69b06bb0370d4558ba57d2a47efc3195
+2025-06-18T10:01:17.003534+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 69b06bb0370d4558ba57d2a47efc3195 (sauvegardé dans models/current_model.json)
+2025-06-18T10:13:26.136855+0200 INFO Analyse des données en cours...
+2025-06-18T10:13:26.181582+0200 INFO Dataset shape after cleaning: (9947, 14)
+2025-06-18T10:13:55.875003+0200 INFO Starting training iteration 0 of 3
+2025-06-18T10:13:55.943007+0200 INFO No previous model_id, creating new model.
+2025-06-18T10:14:18.359761+0200 INFO Model saved as model_20250618_1013_0_None.pkl
+2025-06-18T10:14:19.122973+0200 INFO Model performances: {'MSE': 77088547.04794231, 'MAE': 6471.692798698711, 'R²': 0.30090354334246394}
+2025-06-18T10:14:30.190839+0200 INFO Run 1 terminé, run_id=c4fe258e16114527a4070a6e922395e8
+2025-06-18T10:14:30.222766+0200 INFO Starting training iteration 1 of 3
+2025-06-18T10:14:30.268381+0200 INFO Loading model from previous model_id: c4fe258e16114527a4070a6e922395e8
+2025-06-18T10:14:55.897733+0200 INFO Model saved as model_20250618_1013_1_c4fe258e16114527a4070a6e922395e8.pkl
+2025-06-18T10:14:56.362144+0200 INFO Model performances: {'MSE': 76977580.81843992, 'MAE': 6513.655342635703, 'R²': 0.3019098678981146}
+2025-06-18T10:15:07.908781+0200 INFO Run 2 terminé, run_id=d8dfd148cd5f4f39831386da932b4a79
+2025-06-18T10:15:07.938784+0200 INFO Starting training iteration 2 of 3
+2025-06-18T10:15:07.988783+0200 INFO Loading model from previous model_id: d8dfd148cd5f4f39831386da932b4a79
+2025-06-18T10:15:36.663305+0200 INFO Model saved as model_20250618_1013_2_d8dfd148cd5f4f39831386da932b4a79.pkl
+2025-06-18T10:15:37.343256+0200 INFO Model performances: {'MSE': 77150250.97420087, 'MAE': 6537.286948313566, 'R²': 0.30034396610484415}
+2025-06-18T10:15:49.684018+0200 INFO Run 3 terminé, run_id=095e65f2a8af4cdd82a7f6c908a2b38d
+2025-06-18T10:15:49.716839+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 095e65f2a8af4cdd82a7f6c908a2b38d (sauvegardé dans models/current_model.json)
+2025-06-18T10:21:04.537238+0200 INFO Analyse des données en cours...
+2025-06-18T10:21:04.582238+0200 INFO Dataset shape after cleaning: (9595, 14)
+2025-06-18T10:22:30.768833+0200 INFO Starting training iteration 0 of 3
+2025-06-18T10:22:30.837962+0200 INFO No previous model_id, creating new model.
+2025-06-18T10:22:53.449346+0200 INFO Model saved as model_20250618_1022_0_None.pkl
+2025-06-18T10:22:54.152240+0200 INFO Model performances: {'MSE': 77420754.23946784, 'MAE': 6479.828858112943, 'R²': 0.31715722623837583}
+2025-06-18T10:23:05.704873+0200 INFO Run 1 terminé, run_id=a9379ceeded64c8d86a88b0bda4dbfa4
+2025-06-18T10:23:05.734873+0200 INFO Starting training iteration 1 of 3
+2025-06-18T10:23:05.785873+0200 INFO Loading model from previous model_id: a9379ceeded64c8d86a88b0bda4dbfa4
+2025-06-18T10:23:31.935443+0200 INFO Model saved as model_20250618_1022_1_a9379ceeded64c8d86a88b0bda4dbfa4.pkl
+2025-06-18T10:23:32.378167+0200 INFO Model performances: {'MSE': 77413540.64280693, 'MAE': 6512.230984411889, 'R²': 0.3172208493895724}
+2025-06-18T10:23:44.574213+0200 INFO Run 2 terminé, run_id=908aecea2e1249d7a65da29ac6501c3b
+2025-06-18T10:23:44.620153+0200 INFO Starting training iteration 2 of 3
+2025-06-18T10:23:44.678314+0200 INFO Loading model from previous model_id: 908aecea2e1249d7a65da29ac6501c3b
+2025-06-18T10:24:12.021723+0200 INFO Model saved as model_20250618_1022_2_908aecea2e1249d7a65da29ac6501c3b.pkl
+2025-06-18T10:24:12.690874+0200 INFO Model performances: {'MSE': 77578909.36215211, 'MAE': 6537.746720400399, 'R²': 0.31576231496788754}
+2025-06-18T10:24:23.751532+0200 INFO Run 3 terminé, run_id=00ab168a9a6545529cce45faa52f9925
+2025-06-18T10:24:23.786533+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 00ab168a9a6545529cce45faa52f9925 (sauvegardé dans models/current_model.json)
+2025-06-18T10:30:07.975993+0200 INFO Starting training iteration 0 of 3
+2025-06-18T10:33:07.625116+0200 INFO Starting training iteration 0 of 3
+2025-06-18T10:34:09.596247+0200 INFO Starting training iteration 0 of 3
+2025-06-18T10:34:09.673399+0200 INFO No previous model_id, Trainning column : 20
+2025-06-18T10:34:35.440994+0200 INFO Model saved as model_20250618_1034_0_None.pkl
+2025-06-18T10:34:35.949338+0200 INFO Model performances: {'MSE': 78163165.88437915, 'MAE': 6532.0242467551625, 'R²': 0.31060923491661563}
+2025-06-18T10:34:47.945176+0200 INFO Run 1 terminé, run_id=f8294a27393e42a7bf6587350f5cd740
+2025-06-18T10:34:47.976178+0200 INFO Starting training iteration 1 of 3
+2025-06-18T10:34:48.015176+0200 INFO Loading model from previous model_id: f8294a27393e42a7bf6587350f5cd740
+2025-06-18T10:35:12.647969+0200 INFO Model saved as model_20250618_1034_1_f8294a27393e42a7bf6587350f5cd740.pkl
+2025-06-18T10:35:13.081840+0200 INFO Model performances: {'MSE': 78122311.26967415, 'MAE': 6547.669215404396, 'R²': 0.31096956824971433}
+2025-06-18T10:35:25.527184+0200 INFO Run 2 terminé, run_id=bf3037100bba444abd64fac22c023332
+2025-06-18T10:35:25.561183+0200 INFO Starting training iteration 2 of 3
+2025-06-18T10:35:25.613182+0200 INFO Loading model from previous model_id: bf3037100bba444abd64fac22c023332
+2025-06-18T10:35:55.115685+0200 INFO Model saved as model_20250618_1034_2_bf3037100bba444abd64fac22c023332.pkl
+2025-06-18T10:35:55.763454+0200 INFO Model performances: {'MSE': 78373427.00721286, 'MAE': 6583.8591546011085, 'R²': 0.30875475429652355}
+2025-06-18T10:36:08.017974+0200 INFO Run 3 terminé, run_id=13197b3add6948999ca13673bb58be4c
+2025-06-18T10:36:08.054115+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 13197b3add6948999ca13673bb58be4c (sauvegardé dans models/current_model.json)
+2025-06-18T11:16:20.249651+0200 INFO Starting training iteration 0 of 1
+2025-06-18T11:16:20.335058+0200 INFO No previous model_id, Trainning column : 29
+2025-06-18T11:16:41.810169+0200 INFO Model saved as model_20250618_1116_0_None.pkl
+2025-06-18T11:16:42.519672+0200 INFO Model performances: {'MSE': 77569344.33041671, 'MAE': 6495.320398811275, 'R²': 0.3158466775250014}
+2025-06-18T11:16:52.980727+0200 INFO Run 1 terminé, run_id=9fa5d2a9bbb24de6b08e2de56a622ac2
+2025-06-18T11:16:53.008729+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 9fa5d2a9bbb24de6b08e2de56a622ac2 (sauvegardé dans models/current_model.json)
+2025-06-18T11:53:35.260060+0200 INFO Analyse des données en cours...
+2025-06-18T11:53:35.304061+0200 INFO Dataset shape after cleaning: (9595, 12)
+2025-06-18T14:47:05.057858+0200 INFO Analyse des données en cours...
+2025-06-18T14:47:05.162618+0200 INFO Dataset shape after cleaning: (9595, 12)
