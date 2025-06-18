@@ -13,7 +13,11 @@ from simplonsql.models import Base, LoanData
 from pydantic import BaseModel
 from typing import List
 
-SQLALCHEMY_DATABASE_URL = "postgresql://admin:changeme@localhost/simplon"
+from pydantic_sqlalchemy import sqlalchemy_to_pydantic
+from simplonsql.models import LoanData
+
+# SQLALCHEMY_DATABASE_URL = "postgresql://admin:changeme@localhost/simplon"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -28,24 +32,25 @@ def get_db():
     finally:
         db.close()
 
-# Modèle Pydantic pour LoanData
-class LoanDataSchema(BaseModel):
-    id: int
-    age: int
-    taille: float
-    poids: float
-    sport_licence: str
-    niveau_etude: str
-    region: str
-    smoker: str
-    revenu_estime_mois: int
-    situation_familiale: str
-    risque_personnel: float
-    loyer_mensuel: float
-    montant_pret: float
+# Modèle Pydantic dynamic ! pour LoanData
+LoanDataSchema = sqlalchemy_to_pydantic(LoanData)
+# class LoanDataSchema(BaseModel):
+#     id: int
+#     age: int
+#     taille: float
+#     poids: float
+#     sport_licence: str
+#     niveau_etude: str
+#     region: str
+#     smoker: str
+#     revenu_estime_mois: int
+#     situation_familiale: str
+#     risque_personnel: float
+#     loyer_mensuel: float
+#     montant_pret: float
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 # uvicorn sql_utils:app --host 127.0.0.1 --port 8000 --reload
 

@@ -54,10 +54,8 @@ pip install -r requirements.txt
 └── requirements.txt
 ```
 
-###### `data/` (Le garde-manger du projet)
-Ici, c'est là que nos précieuses données vivent.
-* `df_new.csv` : Les données fraîches du jour, prêtes à être dévorées par notre IA.
-* `df_old.csv` : Les classiques, les vétérans, ceux qui ont tout vu. On les garde par nostalgie (et pour la rétrospective).
+###### `data/`
+* `data-all-684bf775c031b265646213.csv` : Les données de base à traiter.
 
 ###### `figures/` (L'analyste visuelle)
 Sauvegarde des images des courbes de coût et autres graphiques pour visualiser les performances de notre modèle.
@@ -92,6 +90,7 @@ pip freeze > requirements.txt
 - ### Installations des requis sqlAlchemy: 
 ```bash
 pip install psycopg2-binary
+pip install pydantic-sqlalchemy
 ```
 
 - ### Installations des requis loguru: 
@@ -194,7 +193,67 @@ wsl --unregister docker-desktop-data
 docker compose -f docker-compose-postgres.yml up -d
 ```
 
-## Etape clen du jeu de données
-- Utilisation du notebook créé lors du module 2 pour créer un jeu de données propre.
+## Etape clés du projet
+- J'ai créé un nouveau projet à partir des modules précédent : FastAPI / MLFlow / Streamlit/ LOGURU / Docker / 
 - Le jeu de données est stocké dans le dossier `data/` sous le nom `data-all-684bf775c031b265646213.csv`.
+- J'ai suivi le module sur la prise en main de SQL Alchimy et la gestion ORM
+- Le notebook est disponible dans le dossier `notebooks/` sous le nom `SQLAlchemy_exploration.ipynb`.
+- Utilisation du notebook créé lors du module 2 pour analyser et créer un jeu de données propre (CSV).
+- Réutilisation du notebook créé lors du module 2 pour analyser le jeu de données, comprendre les données et les nettoyer.
 - Le notebook est disponible dans le dossier `notebooks/` sous le nom `ethique_data_cleaning.ipynb`.
+
+
+- J'ai créé un script `python alchemy_api.py clean_dataset` pour nettoyer le jeu de données et le stocker dans le dossier `data/`.
+- 
+- J'ai créé une DB PostgreSQL containerisé que j'ai rempli avec les valeurs  j'ai créé un CRUD sur la ressource Client. J'ai également créé un préprocesseur et j'ai créé un modèle que j'ai entraîné avec les données préprocessées de la DB.
+- J'ai changé le preprocesseur pour s'adapter aux nouvelles colonnes du jeu de données.
+Quelles difficultés j’ai rencontrées dans la journée ? 
+- l'apprentissage des nouvelles librairies et leur implémentation dans une architecture relativement propre, la réutilisation d"outils déja vu (MLFlow ...). 
+Qu’est-ce que j’ai appris ? 
+- J'ai appris à utiliser l'ORM SQLAlchemy et à gérer une DB avec.
+- J'ai consolidé les outils à ma disposition pour créer une API REST et un modèle de machine learning : 
+  - Simplification de l'initialisation 
+  ```python 
+    ## Base initialisation for Loguru and FastAPI
+    from myapp_base import setup_loguru, app, Request, HTTPException
+    logger = setup_loguru("logs/alchemy_api.log")
+  ```
+
+- Je suis repassé sur sqllite en db car trop de soucis avec postgres
+
+- J'ai créé des scripts utilitaires pour injecter les données `python inject_data.py init`
+
+- Ajout du module pydantic-sqlalchemy pour gérer les changements de modèles et rendre + dynamique pydantic
+
+> **Note :** A quoi sert le modèle ?
+
+## Documentation du flux de données et évaluation éthique
+
+### Flux de données et transformations
+
+- Les données brutes sont importées depuis un fichier CSV (`data-all-complete-684bf9cd92797851623245.csv`).
+- Un nettoyage éthique est réalisé dans le notebook `ethique_data_cleaning_complete.ipynb` :  
+  - Suppression des colonnes sensibles ou non conformes (nom, prénom, sexe, nationalité, orientation sexuelle, date de création de compte).
+  - Remplissage des valeurs manquantes pour certaines colonnes (`loyer_mensuel` par la moyenne, `situation_familiale` par la modalité la plus fréquente).
+  - Filtrage des valeurs aberrantes (poids, nb_enfants, quotient_caf, loyer_mensuel).
+  - Suppression des colonnes avec trop de valeurs manquantes (`score_credit`, `historique_credits`).
+- Le dataset nettoyé est sauvegardé sous `df_data_all_complete_cleaned.csv` puis injecté dans la base via le script `inject_data.py`.
+
+### Schéma de la base de données
+
+- Table principale : `loandatas`
+- Colonnes :  
+  `id`, `age`, `taille`, `poids`, `nb_enfants`, `quotient_caf`, `sport_licence`, `niveau_etude`, `region`, `smoker`, `revenu_estime_mois`, `situation_familiale`, `risque_personnel`, `loyer_mensuel`, `montant_pret`
+- Le schéma est versionné et documenté via les migrations Alembic.
+
+### Évaluation éthique
+
+- Les colonnes à risque de discrimination ou d’identification ont été supprimées.
+- Les choix de remplissage et de filtrage sont documentés dans le notebook.
+- Les risques de biais restants (ex : sur la région, le niveau d’étude, ou le remplissage par la moyenne) sont identifiés et à surveiller lors de l’utilisation des données.
+
+---
+
+
+
+

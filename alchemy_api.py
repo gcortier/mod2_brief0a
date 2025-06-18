@@ -25,17 +25,19 @@ import pandas as pd
 from os.path import join as join
 import missingno as msno
     
-from datetime import datetime
+from mlflow_shared import settings, artifact_path, wanted_train_cycle
+
 
 ## Base initialisation for Loguru and FastAPI
-from myapp_base import setup_loguru, create_app
+from myapp_base import setup_loguru, app, Request, HTTPException
 logger = setup_loguru("logs/alchemy_api.log")
 
-app = create_app()
+from datetime import datetime
 today_str = datetime.now().strftime("%Y%m%d_%H%M")
 
 # Force url for MLFlow
 mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI", "http://localhost:5000"))
+mlflow.set_experiment(artifact_path)
 
 
 # Utilitaire pour lire le run_id courant
@@ -66,24 +68,12 @@ def get_last_run_id():
         return None
 
 
-settings = {
-    "description": "not set ",
-    "dataversion": "data-all-684bf775c031b265646213.csv", 
-    "wanted_train_cycle": 3,  # nombre d'entraînements à effectuer 3 est le meilleur
-    "epochs": 50,  
-    "train_seed": 42,  
-}
-
-# Paramètres d'entraînement
-wanted_train_cycle = settings.get("wanted_train_cycle", 1)  # nombre d'entraînements à effectuer
-artifact_path = "linear_regression_model"
-
 prediction_model = get_last_run_id()  # Variable to hold the prediction model
-
-from mlflow_utils import MLFlow_train_model, MLFlow_load_model, MLFlow_make_prediction
 
 ### Function to train and log a model iteratively in MLFlow
 def train_and_log_iterative(run_idx, info, run_id=None):
+    from mlflow_utils import train_and_log_model
+    
     """
     Entraîne un modèle et le log dans MLFlow, en utilisant un run_id pour charger un modèle précédent si disponible.
     """
@@ -105,52 +95,10 @@ def prepare_data(df, run_idx=0):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state= 42)  # Ajout de run_idx pour la reproductibilité
     return X_train, X_test, y_train, y_test
 
-def train_and_log_model(X_train, y_train, X_test, y_test, run_desc, model_id=None, run_idx=0, artifact_path="linear_regression_model"):
-    """
-    Entraîne un modèle, loggue dans MLflow, retourne le model_id.
-    """
-     # Charger le modèle du run précédent ou créer un nouveau modèle
-    if model_id is not None:
-        logger.info(f"Loading model from previous model_id: {model_id}")
-        model = MLFlow_load_model(model_id, artifact_path)
-    else:
-        logger.info("No previous model_id, creating new model.")
-        model = create_nn_model(X_train.shape[1])
-        model_id = "None"  # Reset model_id if no previous model is loaded
-    
-    step_base_name = f"model_{today_str}_{run_idx}_{model_id}"
-    model, hist = MLFlow_train_model({
-        "save_model": False, # should be False when tests are finished
-        "save_cost": True, # should be False when tests are finished
-        "step_base_name": step_base_name,
-        "step": run_idx
-    }, model, X_train, y_train, X_val=X_test, y_val=y_test, epochs=50, batch_size=32, verbose=0)
-    
-    preds = MLFlow_make_prediction(model, X_test)
-    
-    perf = evaluate_performance(y_test, preds)
-    print_data(perf, exp_name=run_desc)
-    logger.info(f"Model performances: {perf}")
-    
-
-    with mlflow.start_run() as run:
-        mlflow.log_param("description", run_desc)
-        mlflow.log_param("data_version", settings.get("dataversion", "df_old.csv"))
-        mlflow.log_param("random_state", settings.get("train_seed", 42))
-        mlflow.log_param("previous_run_id", model_id if model_id else "None")
-        mlflow.log_metric("mse", perf['MSE'])
-        mlflow.log_metric("mae", perf['MAE'])
-        mlflow.log_metric("r2", perf['R²'])
-        mlflow.sklearn.log_model(model, artifact_path)
-        logger.info(f"Run {run_idx + 1} terminé, run_id={run.info.run_id}")
-        return run.info.run_id
-       
-       
        
 def outliers_traitments(df, dimension="revenu_estime_mois"):
     """
     Traite les valeurs aberrantes dans le DataFrame.
-    Utilise missingno pour visualiser les données manquantes et les valeurs aberrantes.
     """
     Q1 = df[dimension].quantile(0.25)
     Q3 = df[dimension].quantile(0.75)
@@ -160,6 +108,13 @@ def outliers_traitments(df, dimension="revenu_estime_mois"):
 
 
 def modelize_study_level(df):
+    """
+    Convertit la colonne 'niveau_etude' en valeurs numériques.
+    """
+    if 'niveau_etude' not in df.columns:
+        logger.warning("Colonne 'niveau_etude' non trouvée dans le DataFrame.")
+        return df
+
     df['niveau_etude'] = df['niveau_etude'].map({
         'aucun': 0,
         'bac': 1,
@@ -171,12 +126,13 @@ def modelize_study_level(df):
 
    
        
-def analyse_dataset():
-    # collisions = pd.read_csv(join('data', "data_numeric_only.csv"))
-    collisions = pd.read_csv(join('data', "data-all-68482f115ac04033078508.csv"))
+def clean_dataset():
+    """
+    Analyse le dataset, nettoie et sauvegarde le résultat.
+    """
     
-    # collisions.info()
-    # collisions.describe()
+    collisions = pd.read_csv(join('data', "data-all-684bf775c031b265646213.csv"))
+
     
     # Suppression des doublons
     collisions = collisions.drop_duplicates()
@@ -187,32 +143,42 @@ def analyse_dataset():
     # On vire car pas éthique
     collisions.drop(columns=['sexe'], inplace=True, errors='ignore')
     collisions.drop(columns=['nationalité_francaise'], inplace=True, errors='ignore')
+    collisions.drop(columns=['date_creation_compte'], inplace=True, errors='ignore')
     # On vire car trop peu de données
     collisions.drop(columns=['score_credit'], inplace=True, errors='ignore')
     collisions.drop(columns=['historique_credits'], inplace=True, errors='ignore')
+   
+
 
     # on rempli loyer mensuel avec la moyenne 
     collisions['loyer_mensuel'] = collisions['loyer_mensuel'].fillna(collisions['loyer_mensuel'].mean())
+    
+    # collisions['score_credit'] = collisions['score_credit'].fillna(collisions['score_credit'].mean())
+    # collisions['historique_credits'] = collisions['historique_credits'].fillna(collisions['historique_credits'].mean())
+
+    # on remplace par la valeur la plus courante
+    collisions['situation_familiale'] = collisions['situation_familiale'].fillna(collisions['situation_familiale'].mode()[0])
+
 
     # filter outlers values
-    collisions = collisions[(collisions['poids'] > 30) & (collisions['loyer_mensuel'] > 0)]
+    collisions = collisions[(collisions['poids'] > 42) & (collisions['loyer_mensuel'] > 300)]
 
 
-    # process category
+    # process category : niveau_etude to int levels
     modelize_study_level(collisions)
 
 
     logger.info(f"Dataset shape after cleaning: {collisions.shape}")
 
     # Sauvegarde du dataset nettoyé
-    collisions.to_csv(join('data', 'df_cleaned.csv'), index=False)
+    # collisions.to_csv(join('data', 'df_data_all_cleaned.csv'), index=False)
      
 
 
              
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "train":
-        
+        # python alchemy_api.py train
         # run_id = None
         run_id = prediction_model
         
@@ -221,27 +187,13 @@ if __name__ == "__main__":
             run_id = train_and_log_iterative(i, settings, run_id)
         # Mettre à jour le modèle de prédiction avec le dernier run_id
         set_last_run_id(run_id)
-    elif len(sys.argv) > 1 and sys.argv[1] == "analyse":
-        # python mlFlow_api.py analyse
+    elif len(sys.argv) > 1 and sys.argv[1] == "clean_dataset":
+        # python alchemy_api.py clean_dataset
         logger.info("Analyse des données en cours...")
-        analyse_dataset()
+        clean_dataset()
         
     else:
-        print("Aucune action lancée. Pour entraîner, lancez : python mlFlow_api.py train")
-        
-        
-@app.get("/health")
-async def health(request: Request):
-    """
-    Endpoint de santé pour vérifier que l'application fonctionne.
-    """
-    logger.info(f"Route '{request.url.path}' called by {request.client.host}")
-    return {"status": "healthy", "message": "API is running"}
-
-
-
-
-
+        print("Aucune action lancée. Pour entraîner, lancez : python alchemy_api.py train")
 
 class PredictRequest(BaseModel):
     data: List[Any]  # Liste des features pour une seule instance
@@ -257,6 +209,7 @@ async def predict(request: Request, payload: PredictRequest):
         run_id = get_last_run_id()
         if not run_id:
             raise HTTPException(status_code=404, detail="Aucun run_id trouvé. Veuillez entraîner un modèle d'abord.")
+        from mlflow_utils import MLFlow_load_model
         model = MLFlow_load_model(run_id, artifact_path)
         logger.info(f"Model loaded from MLflow run ID: {run_id}")
                 

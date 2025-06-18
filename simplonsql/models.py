@@ -10,6 +10,8 @@ class LoanData(Base):
     age = Column(Integer)
     taille = Column(Float)
     poids = Column(Float)
+    nb_enfants = Column(Integer)
+    quotient_caf = Column(Float)
     sport_licence = Column(String)
     niveau_etude = Column(String)
     region = Column(String)
