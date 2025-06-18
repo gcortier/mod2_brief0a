@@ -1,21 +1,13 @@
 import sys
 import mlflow
-import mlflow.sklearn
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import make_regression
-
 import json
-
-from modules.preprocess import preprocessing, split
-from modules.evaluate import evaluate_performance
-from modules.print_draw import print_data, draw_loss
-from models.models import create_nn_model, train_model, model_predict
+from modules.preprocess import preprocessing_v2
+from models.models import model_predict
 import pandas as pd
 import joblib
 from os.path import join as join
-from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from typing import List, Any
 import numpy as np
@@ -47,6 +39,7 @@ def set_last_run_id(run_id):
         result = {
             "run_id": run_id,
             "timestamp": datetime.now().isoformat(),
+            "settings": settings,
             # futur : ajouter le r²
         }
         with open("models/current_model.json", "w") as f:
@@ -71,26 +64,26 @@ def get_last_run_id():
 prediction_model = get_last_run_id()  # Variable to hold the prediction model
 
 ### Function to train and log a model iteratively in MLFlow
-def train_and_log_iterative(run_idx, info, run_id=None):
+def train_and_log_iterative(run_idx, settings, run_id=None):
     from mlflow_utils import train_and_log_model
     
     """
     Entraîne un modèle et le log dans MLFlow, en utilisant un run_id pour charger un modèle précédent si disponible.
     """
-    df = pd.read_csv(join('data', info["dataversion"]))
-    X_train, X_test, y_train, y_test = prepare_data(df, run_idx)
+    df = pd.read_csv(join('data', settings["training_data"]))
+    X_train, X_test, y_train, y_test = prepare_data(df, settings, run_idx)
     
     run_desc = f"Performance for run {run_idx}/{wanted_train_cycle}"
     
     run_id = train_and_log_model(X_train, y_train, X_test, y_test, run_desc, run_id, run_idx, artifact_path)
     return run_id
 
-def prepare_data(df, run_idx=0):
+def prepare_data(df, settings, run_idx=0):
     """
     Prend un DataFrame, applique le préprocessing et split en train/test.
     Retourne X_train, X_test, y_train, y_test
     """
-    X, y, _ = preprocessing(df)
+    X, y, _ = preprocessing_v2(df, settings)
     # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state= 42+run_idx)  # Ajout de run_idx pour la reproductibilité
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state= 42)  # Ajout de run_idx pour la reproductibilité
     return X_train, X_test, y_train, y_test
@@ -125,15 +118,25 @@ def modelize_study_level(df):
     return df
 
    
-       
-def clean_dataset():
+def fillna_with_missing_indicator(df, columns):
+    """
+    Pour chaque colonne de la liste, ajoute une colonne <col>_missing (1 si NaN, 0 sinon)
+    et remplit les NaN par la moyenne de la colonne.
+    """
+    for col in columns:
+        missing_col = f"{col}_missing"
+        df[missing_col] = df[col].isna().astype(int)
+        df[col] = df[col].fillna(df[col].mean())
+    return df
+
+
+def clean_dataset(csv_path, csv_target):
     """
     Analyse le dataset, nettoie et sauvegarde le résultat.
     """
     
-    collisions = pd.read_csv(join('data', "data-all-684bf775c031b265646213.csv"))
+    collisions = pd.read_csv(csv_path)
 
-    
     # Suppression des doublons
     collisions = collisions.drop_duplicates()
 
@@ -144,25 +147,16 @@ def clean_dataset():
     collisions.drop(columns=['sexe'], inplace=True, errors='ignore')
     collisions.drop(columns=['nationalité_francaise'], inplace=True, errors='ignore')
     collisions.drop(columns=['date_creation_compte'], inplace=True, errors='ignore')
-    # On vire car trop peu de données
-    collisions.drop(columns=['score_credit'], inplace=True, errors='ignore')
-    collisions.drop(columns=['historique_credits'], inplace=True, errors='ignore')
-   
 
 
-    # on rempli loyer mensuel avec la moyenne 
-    collisions['loyer_mensuel'] = collisions['loyer_mensuel'].fillna(collisions['loyer_mensuel'].mean())
-    
-    # collisions['score_credit'] = collisions['score_credit'].fillna(collisions['score_credit'].mean())
-    # collisions['historique_credits'] = collisions['historique_credits'].fillna(collisions['historique_credits'].mean())
+    # Ajout indicateur de valeurs manquantes(key_missing) + remplissage par la moyenne
+    collisions = fillna_with_missing_indicator(collisions, ['loyer_mensuel', 'score_credit', 'historique_credits'])
 
     # on remplace par la valeur la plus courante
     collisions['situation_familiale'] = collisions['situation_familiale'].fillna(collisions['situation_familiale'].mode()[0])
 
-
     # filter outlers values
     collisions = collisions[(collisions['poids'] > 42) & (collisions['loyer_mensuel'] > 300)]
-
 
     # process category : niveau_etude to int levels
     modelize_study_level(collisions)
@@ -171,7 +165,8 @@ def clean_dataset():
     logger.info(f"Dataset shape after cleaning: {collisions.shape}")
 
     # Sauvegarde du dataset nettoyé
-    # collisions.to_csv(join('data', 'df_data_all_cleaned.csv'), index=False)
+    collisions.to_csv(csv_target, index=False)
+    
      
 
 
@@ -190,7 +185,10 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "clean_dataset":
         # python alchemy_api.py clean_dataset
         logger.info("Analyse des données en cours...")
-        clean_dataset()
+        # csv_path = join('data', "df_data_all_cleaned.csv")
+        csv_path = join('data', "data-all-684bf775c031b265646213.csv")
+        csv_target = join('data', 'df_data_all_cleaned.csv')
+        clean_dataset(csv_path, csv_target)
         
     else:
         print("Aucune action lancée. Pour entraîner, lancez : python alchemy_api.py train")
@@ -269,7 +267,7 @@ async def retrain(request: Request, payload: RetrainRequest):
         run_id = get_last_run_id() if payload.from_existing_model else None
         
         # Mettre à jour la version des données avec seulement le nom du fichier
-        settings["dataversion"] = os.path.basename(payload.data_path)
+        settings["training_data"] = os.path.basename(payload.data_path)
         for i in range(wanted_train_cycle):
             logger.info(f"Starting training iteration {i} of {wanted_train_cycle} (from_existing_model={payload.from_existing_model})")
             run_id = train_and_log_iterative(i, settings, run_id)

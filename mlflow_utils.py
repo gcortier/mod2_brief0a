@@ -68,7 +68,7 @@ def train_and_log_model(X_train, y_train, X_test, y_test, run_desc, model_id=Non
 
     with mlflow.start_run() as run:
         mlflow.log_param("description", run_desc)
-        # mlflow.log_param("data_version", settings.get("dataversion", "df_data_all_cleaned.csv"))
+        mlflow.log_param("data_version", settings.get("training_data", "df_data_all_cleaned.csv"))
         mlflow.log_param("random_state", settings.get("train_seed", 42))
         mlflow.log_param("previous_run_id", model_id if model_id else "None")
         mlflow.log_metric("mse", perf['MSE'])

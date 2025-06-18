@@ -43,6 +43,9 @@ pip install -r requirements.txt
 │   └── preprocessor.pkl
 ├── figures/
 │   ├── ...
+├── logs/
+│   ├── alchemy-api.log
+│   └── sql_utils.log
 ├── modules/
 │   ├── evaluate.py
 │   ├── preprocess.py
@@ -91,6 +94,10 @@ pip freeze > requirements.txt
 ```bash
 pip install psycopg2-binary
 pip install pydantic-sqlalchemy
+```
+- ### Installations des requis Mod3 Brief 2: 
+```bash
+pip install tensorflow
 ```
 
 - ### Installations des requis loguru: 
@@ -255,5 +262,25 @@ Qu’est-ce que j’ai appris ?
 ---
 
 
+# Brief 2 :
+Objectif : Adapter un modèle IA existant (TensorFlow/Keras) à de nouvelles colonnes d’entrée, sans perdre les poids internes, puis le réentraîner sur un dataset enrichi.
+Suivi des performances : MLflow ou TensorBoard.
+Exposition du modèle : API FastAPI prenant en compte les nouvelles colonnes.
+Livrables attendus :
+Nouveau modèle entraîné (.h5, .pkl ou SavedModel)
+Script de modification de l’architecture + script d’entraînement
+Script/projet FastAPI pour l’API
+Journal de suivi MLflow
+README détaillé
 
 
+- j'ai refacto pour rendre dynamique les usages de colonnes pour l'entrainnement du model
+- J'ai ajouté la stratégy de missing pour les colonnes incompletes
+- entraînement du model : python alchemy_api.py train
+- on est à un entrainnement à cette valeur : 
+==================Performance for run 0/1===================
+MSE: 77444596.8351, MAE: 6463.7837, R²: 0.3169
+============================================================
+
+
+- test avec notebook

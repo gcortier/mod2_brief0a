@@ -1,1 +1,13 @@
-{"run_id": "9fa5d2a9bbb24de6b08e2de56a622ac2", "timestamp": "2025-06-18T11:16:53.007728"}
+{
+    "run_id": "0eceb24c95c94737a29e6b50b848b0c2", 
+    "timestamp": "2025-06-18T16:57:51.987204", 
+    "settings": {
+        "training_data": "df_data_all_cleaned.csv",
+        "wanted_train_cycle": 1,
+        "epochs": 50,
+        "train_seed": 42,
+        "numerical_cols": ["age", "taille", "poids", "revenu_estime_mois", "risque_personnel", "loyer_mensuel"],
+        "partials_num_cols": ["score_credit", "historique_credits", "loyer_mensuel"],
+        "categorical_cols": ["sport_licence", "niveau_etude", "region", "smoker", "situation_familiale"]
+    }
+}

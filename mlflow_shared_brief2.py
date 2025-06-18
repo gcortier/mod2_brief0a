@@ -2,12 +2,12 @@
 
 settings = {
     # source de données de l'entrainnement
-    "training_data": "df_data_all_cleaned.csv",
+    "training_data": "df_data_all_complete_cleaned.csv",
     "wanted_train_cycle": 1,
     "epochs": 50,
     "train_seed": 42,
     # les valeurs numériques
-    "numerical_cols": ["age", "taille", "poids", "revenu_estime_mois", "risque_personnel", "loyer_mensuel"],
+    "numerical_cols": ["age", "taille", "poids", "nb_enfants", "quotient_caf", "revenu_estime_mois", "risque_personnel", "loyer_mensuel"],
     # les colonnes catégorielles
     "categorical_cols": ["sport_licence", "niveau_etude", "region", "smoker", "situation_familiale"],
     # les valeurs manquantes à compléter à la moyenne et à ajouter dans une colonne boolean : _missing
