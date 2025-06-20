@@ -1,7 +1,9 @@
 # Fichier utilitaire pour partager les variables entre alchemy_api.py et mlflow_utils.py
 
 settings = {
-    # source de données de l'entrainnement
+    # source de données de l'entrainnement : Original
+    "source_data": "data-all-684bf775c031b265646213.csv",
+    # source de données de l'entrainnement : Cleaned
     "training_data": "df_data_all_cleaned.csv",
     "wanted_train_cycle": 1,
     "epochs": 50,

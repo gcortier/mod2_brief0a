@@ -168,3 +168,22 @@
 2025-06-18T16:57:38.282426+0200 INFO Model performances: {'MSE': 77561291.38825664, 'MAE': 6526.996010056254, 'R²': 0.31591770361374905}
 2025-06-18T16:57:51.952648+0200 INFO Run 1 terminé, run_id=4e56d17f38494876b18fdf54b5620427
 2025-06-18T16:57:51.987204+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 4e56d17f38494876b18fdf54b5620427 (sauvegardé dans models/current_model.json)
+2025-06-20T15:06:02.455703+0200 INFO Starting training iteration 0 of 1
+2025-06-20T15:16:37.488339+0200 INFO Starting training iteration 0 of 1
+2025-06-20T15:16:37.564145+0200 INFO Training data loaded: df_data_all_complete_cleaned.csv with shape (9409, 14)
+2025-06-20T15:26:33.151352+0200 INFO Analyse des données en cours...
+2025-06-20T15:26:33.227893+0200 INFO Dataset shape after cleaning: (9595, 20)
+2025-06-20T15:28:02.807829+0200 INFO Starting training iteration 0 of 1
+2025-06-20T15:28:02.859829+0200 INFO Training data loaded: df_data_all_complete_cleaned.csv with shape (9595, 20)
+2025-06-20T15:28:02.931475+0200 INFO Loading model from previous model_id: 0eceb24c95c94737a29e6b50b848b0c2
+2025-06-20T15:28:05.556256+0200 INFO Transferring weights from previous model_id: 0eceb24c95c94737a29e6b50b848b0c2
+2025-06-20T15:28:09.546704+0200 INFO Transmitting weights from model at runs:/0eceb24c95c94737a29e6b50b848b0c2/sequential_model to new model.
+2025-06-20T15:36:31.378648+0200 INFO Starting training iteration 0 of 1
+2025-06-20T15:36:31.434646+0200 INFO Training data loaded: df_data_all_complete_cleaned.csv with shape (9595, 20)
+2025-06-20T15:36:31.471763+0200 INFO No previous model_id, Trainning column : 35
+2025-06-20T15:36:31.654223+0200 INFO Transferring weights from previous model_id: 0eceb24c95c94737a29e6b50b848b0c2
+2025-06-20T15:36:31.654223+0200 WARNING No previous model_id provided for weight transfer.
+2025-06-20T15:36:55.838031+0200 INFO Model saved as model_20250620_1536_0_None.pkl
+2025-06-20T15:36:56.911462+0200 INFO Model performances: {'MSE': 61944948.3360451, 'MAE': 5717.075806493549, 'R²': 0.4536521794727961}
+2025-06-20T15:37:11.441847+0200 INFO Run 1 terminé, run_id=6b31266aceae4f48bd4c2dcd45bc988f
+2025-06-20T15:37:11.479848+0200 INFO Nouveau modèle de prédiction mis à jour avec run_id: 6b31266aceae4f48bd4c2dcd45bc988f (sauvegardé dans models/current_model.json)

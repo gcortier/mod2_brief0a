@@ -17,7 +17,8 @@ import pandas as pd
 from os.path import join as join
 import missingno as msno
     
-from mlflow_shared import settings, artifact_path, wanted_train_cycle
+# from mlflow_shared import settings, artifact_path, wanted_train_cycle
+from mlflow_shared_brief2 import settings, artifact_path, wanted_train_cycle
 
 
 ## Base initialisation for Loguru and FastAPI
@@ -71,6 +72,8 @@ def train_and_log_iterative(run_idx, settings, run_id=None):
     Entraîne un modèle et le log dans MLFlow, en utilisant un run_id pour charger un modèle précédent si disponible.
     """
     df = pd.read_csv(join('data', settings["training_data"]))
+    logger.info(f"Training data loaded: {settings['training_data']} with shape {df.shape}")
+    
     X_train, X_test, y_train, y_test = prepare_data(df, settings, run_idx)
     
     run_desc = f"Performance for run {run_idx}/{wanted_train_cycle}"
@@ -185,9 +188,16 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "clean_dataset":
         # python alchemy_api.py clean_dataset
         logger.info("Analyse des données en cours...")
-        # csv_path = join('data', "df_data_all_cleaned.csv")
-        csv_path = join('data', "data-all-684bf775c031b265646213.csv")
-        csv_target = join('data', 'df_data_all_cleaned.csv')
+        
+        
+        
+        
+        # Charger les paramètres de configuration
+        source_data = settings.get("source_data", "data-all-684bf775c031b265646213.csv")
+        training_data = settings.get("training_data", "df_data_all_cleaned.csv")
+                
+        csv_path = join('data', source_data)
+        csv_target = join('data', training_data)
         clean_dataset(csv_path, csv_target)
         
     else:

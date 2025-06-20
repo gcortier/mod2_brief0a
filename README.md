@@ -284,3 +284,11 @@ MSE: 77444596.8351, MAE: 6463.7837, R²: 0.3169
 
 
 - test avec notebook
+- Codage Codage Codage...
+
+
+# Exécution du script d'entraînement en transferant les poids du premier model
+60/60 ━━━━━━━━━━━━━━━━━━━━ 0s 1ms/step 
+==================Performance for run 0/1===================
+MSE: 61944948.3360, MAE: 5717.0758, R²: 0.4537
+============================================================
