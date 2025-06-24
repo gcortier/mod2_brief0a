@@ -312,45 +312,6 @@ class RetrainResponse(BaseModel):
     run_id: str
 
 
-# @app.post("/retrain", response_model=RetrainResponse)
-async def retrain(request: Request, payload: RetrainRequest):
-    
-    """
-    Réentraîne le modèle à partir d'un fichier CSV fourni (data_path) et d'une option pour fine-tuning ou nouveau modèle.
-    """
-    
-    settings = {
-        "description": "retrain model with new data",
-        "wanted_train_cycle": 3,  # nombre d'entraînements à effectuer 3 est le meilleur
-        "epochs": 50,  
-        "train_seed": 42,  
-    }
-    
-    logger.info(f"Route '{request.url.path}' called for retraining with data_path={payload.data_path}, from_existing_model={payload.from_existing_model}")
-    
-    
-    try:
-        # Charger le dataset fourni
-        df = pd.read_csv(payload.data_path)
-        logger.info(f"Données chargées pour réentraînement: shape={df.shape}, colonnes={df.columns.tolist()}")
-
-        run_id = get_last_run_id() if payload.from_existing_model else None
-        
-        # Mettre à jour la version des données avec seulement le nom du fichier
-        settings["training_data"] = os.path.basename(payload.data_path)
-        for i in range(wanted_train_cycle):
-            logger.info(f"Starting training iteration {i} of {wanted_train_cycle} (from_existing_model={payload.from_existing_model})")
-            run_id = train_and_log_iterative(i, settings, run_id)
-            
-        # Mettre à jour le modèle de prédiction avec le dernier run_id
-        # Sauvegarder le run_id et les scores dans un fichier local
-        set_last_run_id(run_id)
-        
-        return {"status": "success", "run_id": run_id}
-    
-    except Exception as e:
-        logger.error(f"Erreur lors du réentraînement: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/current_model")

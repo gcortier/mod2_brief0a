@@ -58,29 +58,30 @@ pip install -r requirements.txt
 ```
 
 ###### `data/`
-* `data-all-684bf775c031b265646213.csv` : Les données de base à traiter.
+* `data-all-complete-684bf9cd92797851623245.csv` : les données du dernier cas avec des colonnes en plus
 
-###### `figures/` (L'analyste visuelle)
+###### `figures/`
 Sauvegarde des images des courbes de coût et autres graphiques pour visualiser les performances de notre modèle.
 
-###### `models/` (Le garage à cerveaux)
-Ce dossier, c'est notre caverne d'Ali Baba des cerveaux artificiels.
-* `models.py` : Les plans de nos futurs cyborgs... euh, de nos modèles. C'est ici que l'on définit l'architecture de nos NN et autres merveilles.
-* `model_2024_08.pkl` : Une version sauvegardée de notre modèle. On l'a encapsulé pour qu'il ne s'échappe pas et ne domine pas le monde... pas encore.
-* `preprocessor.pkl` : L'outil magique qui prépare les données avant de les donner à manger au modèle. Sans lui, c'est l'indigestion assurée !
+###### `models/`
+* `models.py` : La définition du model
+* `model_20250620_1536_0_None.pkl` :Dernier model entrainé
+* `preprocessor_latest.pkl` : Le preprocess avec les nouvelles colonnnes !
 
-###### `modules/` (La boîte à outils de MacGyver)
+###### `modules/`
 Ce sont nos couteaux suisses du code. Chaque fichier est un expert dans son domaine.
 * `evaluate.py` : Le juge impitoyable qui dit si notre modèle est un génie ou un cancre.
 * `preprocess.py` : Le chef cuisinier des données. Il les nettoie, les coupe, les assaisonne pour qu'elles soient parfaites pour notre IA.
 * `print_draw.py` : L'artiste du groupe. Il transforme nos chiffres barbares en beaux graphiques pour que même ta grand-mère puisse comprendre (enfin, presque).
 
+###### `notebooks/`
+les différents notebook pour explorer les briefs
+
+
+###### `simplonsql/`
+Le model de données utilisé pour la base de données SQLAlchemy et les routes FastApi
+
 ---
-
-On espère que cette petite virée dans notre projet t'a plu. N'hésite pas à jeter un œil au `main.py` pour lancer le grand spectacle !
-
-*Fait avec amour, code et une bonne dose de caféine (et un peu de folie).*
-
 
 # TD => GOGOGO
 ## setup
@@ -144,56 +145,10 @@ streamlit run streamlit_app.py
 [Streamlit Front](http://localhost:8501)
 
 
-## Déroulé du travail
-Création d'un script pour générer 3 entrainements et les stocker sur MLflow : 
-Les models créé sont stockés dans le dossier `models/` et pictures du drawloss sont stockés dans le dossier `figures/`.
-
-
-- J'ai mis en place :
-  - Un script pour lancer 5 entrainements sur les anciennes données et 5 sur les nouvelles données.
-  - le suivi des performances de chaque entrainement dans MLflow. (possibilité de stocker ou pas les modèles et les graph de loss)
-  - les tests unitaires avec pytest
-  - le loging des performances avec `loguru` et un setup simplifié pour le logger.
-  - les images des couts stockés dans le dossier `figures/`.
-  - Une route `/predict` pour faire des prédictions sur des données envoyées via questionnaire *Streamlit*.
-  - Une route `/retrain` pour réentrainer le modèle (in progress).
-  - Containerisation avec docker File puis docker-compose 
-  - Stockage de l'id du model en local dans un fichier pour le retrouver depuis docker
-
-
-
-**Docker : Build & Run**
-
-Pour builder l’image Docker manuellement :
-```bash
-docker build -t mlflow-app .
-```
-Puis lancer le conteneur (tous services dans le même conteneur) :
-```bash
-docker run -p 8000:8000 -p 8501:8501 -p 5000:5000 mlflow-app
-```
 
 - FastAPI : http://localhost:8000/docs
-- Streamlit : http://localhost:8501
 - MLflow UI : http://localhost:5000
 
-**Avec Docker Compose (meilleur approche)**
-
-Pour builder et lancer tous les services (API, Streamlit, MLflow) dans des conteneurs séparés :
-```bash
-docker compose up --build
-```
-
-Pour tout arrêter proprement :
-```bash
-docker compose down
-```
-
-
-```powershell
-wsl --unregister docker-desktop
-wsl --unregister docker-desktop-data
-```
 
 ## setup docker postgresql
 ```powershell
@@ -213,14 +168,23 @@ docker compose -f docker-compose-postgres.yml up -d
 - J'ai changé le preprocesseur pour s'adapter aux nouvelles colonnes du jeu de données.
 - J'ai créé des scripts utilitaires pour injecter les données `python inject_data.py init`
 - Ajout du module pydantic-sqlalchemy pour gérer les changements de modèles et rendre + dynamique pydantic
+- Une route `/predict_loandata42` pour faire des prédictions sur des données envoyées via pydantic
+- le loging des performances avec `loguru` et un setup simplifié pour le logger.
+- les images des couts stockés dans le dossier `figures/`.
+
 
 ## Quelles difficultés j’ai rencontrées ? 
 - l'apprentissage des nouvelles librairies et leur implémentation dans une architecture relativement propre, la réutilisation d"outils déja vu (MLFlow ...). 
 - Je suis repassé sur sqllite en db car trop de soucis avec postgres
-- 
+- La gestion des migrations de la base de données avec Alembic.
+- La gestion des données manquantes et la création d'un préprocesseur efficace.
+
+
 ## Qu’est-ce que j’ai appris ? 
 - J'ai appris à utiliser l'ORM SQLAlchemy et à gérer une DB avec.
 - J'ai consolidé les outils à ma disposition pour créer une API REST et un modèle de machine learning : 
+- Transférer des poids d'un modèle à un autre.
+- Comment utiliser des stratégy de remplissage de colonne en gardans l'information originale : missing True/False
   - Simplification de l'initialisation 
   ```python 
     ## Base initialisation for Loguru and FastAPI
@@ -232,7 +196,7 @@ docker compose -f docker-compose-postgres.yml up -d
 
 
 
-> **Note :** A quoi sert le modèle ?
+> **Note :** OK mes qustionnements on été répondu lors de la session en one to one
 
 ### Flux de données et transformations
 
@@ -300,4 +264,4 @@ Courbe de loss : model_20250620_1536_0_None.jpg
 - Création d'un script pour enregistrer le preprocess pour la route de prédiction
 - Changement de type pour la données 
 
-- Utilisation d'une data d'enregirstrement de l'ordre des colonne pour completer la route de prédiction.
+- Utilisation d'une data d'enregistrement de l'ordre des colonnes pour completer la route de prédiction.
