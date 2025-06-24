@@ -56,18 +56,14 @@ def preprocessing_v2(df, settings):
     X_processed = preprocessor.fit_transform(X)
     print(f"Shape of X_processed: {X_processed.shape}")
     
+    # sortie des colonnes utilisés
     # feature_names = preprocessor.get_feature_names_out()
     # print(len(feature_names))  # Affiche le nombre de colonnes générées
     # print(feature_names)       # Affiche les noms des colonnes générées
-    
+
     return X_processed, y, preprocessor
 
 
-
-
-
-
-def preprocessing(df):
     """
     Fonction pour effectuer le prétraitement des données :
     - Imputation des valeurs manquantes.

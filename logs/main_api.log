@@ -1,0 +1,31 @@
+2025-06-23T14:52:08.153941+0200 INFO Route '/' called by 127.0.0.1
+2025-06-23T14:52:29.676589+0200 INFO Route '/current_model' called by 127.0.0.1
+2025-06-23T15:54:41.791208+0200 INFO Route '/predict_loandata' appelée avec données: {'age': 42, 'taille': 184.0, 'poids': 80.0, 'nb_enfants': 2, 'quotient_caf': 0.0, 'sport_licence': 'oui', 'niveau_etude': '3', 'region': 'Provence-Alpes-Côte d’Azur', 'smoker': 'oui', 'revenu_estime_mois': 0, 'situation_familiale': 'marié', 'risque_personnel': 0.0, 'loyer_mensuel': 0.0}
+2025-06-23T16:03:37.419027+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:06:26.297211+0200 INFO Route '/loandata' avec id=2
+2025-06-23T16:06:38.754277+0200 INFO Route '/current_model' called by 127.0.0.1
+2025-06-23T16:06:51.123375+0200 INFO Route '/loandata' avec id=2
+2025-06-23T16:07:52.074862+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:10:45.755825+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:10:58.973600+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:11:49.833447+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:12:59.775523+0200 INFO Route '/loandata' avec id=42
+2025-06-23T16:13:03.805230+0200 INFO Route '/loandata' avec id=2
+2025-06-23T16:14:43.404786+0200 INFO Route '/loandata' avec id=2
+2025-06-23T16:24:32.211268+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:24:33.667323+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:24:34.811077+0200 INFO Route '/loandata' avec id=None
+2025-06-23T16:25:07.454092+0200 INFO Route '/loandata' avec id=None
+2025-06-23T17:04:09.588713+0200 INFO Route '/current_model' called by 127.0.0.1
+2025-06-23T17:04:45.432685+0200 INFO Route '/loandata' avec id=42
+2025-06-23T17:04:51.498858+0200 INFO Route '/loandata' avec id=2
+2025-06-23T17:05:01.863588+0200 INFO Route '/loandata' avec id=None
+2025-06-23T17:06:53.854606+0200 INFO Route '/loandata' avec id=2
+2025-06-23T17:07:46.533506+0200 INFO Route '/loandata' avec id=2
+2025-06-23T17:08:34.987739+0200 INFO Route '/predict_loandata' appelée avec données: {'age': 0, 'taille': 0.0, 'poids': 0.0, 'nb_enfants': 0, 'quotient_caf': 0.0, 'sport_licence': 'string', 'niveau_etude': '0', 'region': 'string', 'smoker': 'string', 'revenu_estime_mois': 0, 'situation_familiale': 'string', 'risque_personnel': 0.0, 'loyer_mensuel': 0.0}
+2025-06-23T17:12:05.170858+0200 INFO Route '/predict_loandata' appelée avec données: {'age': 0, 'taille': 0.0, 'poids': 0.0, 'nb_enfants': 0, 'quotient_caf': 0.0, 'sport_licence': 'string', 'niveau_etude': '0', 'region': 'string', 'smoker': 'string', 'revenu_estime_mois': 0, 'situation_familiale': 'string', 'risque_personnel': 0.0, 'loyer_mensuel': 0.0}
+2025-06-23T17:13:56.657057+0200 INFO Route '/predict_loandata42' appelée avec données: {'age': 0, 'taille': 0.0, 'poids': 0.0, 'nb_enfants': 0, 'quotient_caf': 0.0, 'sport_licence': 'string', 'niveau_etude': 'string', 'region': 'string', 'smoker': 'string', 'revenu_estime_mois': 0, 'situation_familiale': 'string', 'risque_personnel': 0.0, 'loyer_mensuel': 0.0}
+2025-06-24T09:19:10.177423+0200 INFO Route '/predict_loandata42' appelée avec données: {'age': 0, 'taille': 0.0, 'poids': 0.0, 'nb_enfants': 0, 'quotient_caf': 0.0, 'sport_licence': 'string', 'niveau_etude': 'string', 'region': 'string', 'smoker': 'string', 'revenu_estime_mois': 0, 'situation_familiale': 'string', 'risque_personnel': 0.0, 'loyer_mensuel': 0.0}
+2025-06-24T09:29:38.183831+0200 INFO Route '/predict_loandata42' appelée avec données: {'age': 30, 'taille': 175.0, 'poids': 70.0, 'nb_enfants': 2, 'quotient_caf': 1.2, 'sport_licence': 'oui', 'niveau_etude': 'bac+2', 'region': 'Île-de-France', 'smoker': 'non', 'revenu_estime_mois': 2500, 'situation_familiale': 'marié', 'risque_personnel': 0.1, 'loyer_mensuel': 900.0}
+2025-06-24T09:54:44.131332+0200 INFO Route '/predict_loandata42' appelée avec données: {'age': 30, 'taille': 175.0, 'poids': 70.0, 'nb_enfants': 2, 'quotient_caf': 1.2, 'sport_licence': 'oui', 'niveau_etude': 'bac+2', 'region': 'Île-de-France', 'smoker': 'non', 'revenu_estime_mois': 2500, 'situation_familiale': 'marié', 'risque_personnel': 0.1, 'loyer_mensuel': 900.0}
+2025-06-24T10:14:59.217574+0200 INFO Route '/predict_loandata42' appelée avec données: {'age': 48, 'taille': 175.0, 'poids': 70.0, 'nb_enfants': 2, 'quotient_caf': 1.2, 'sport_licence': 'oui', 'niveau_etude': 'bac+2', 'region': 'Île-de-France', 'smoker': 'non', 'revenu_estime_mois': 15000, 'situation_familiale': 'marié', 'risque_personnel': 0.1, 'loyer_mensuel': 900.0}

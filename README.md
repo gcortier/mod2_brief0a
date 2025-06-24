@@ -45,15 +45,15 @@ pip install -r requirements.txt
 │   ├── ...
 ├── logs/
 │   ├── alchemy-api.log
-│   └── sql_utils.log
+│   └── main_api.log
 ├── modules/
 │   ├── evaluate.py
 │   ├── preprocess.py
 │   └── print_draw.py
 ├── .gitignore
 ├── README.md
-├── app.py  => root de front
-├── mlFlow_api.py => API FastAPI 
+├── main_api.py => API FastAPI 
+├── alchemy_api.py => Niveau 0 API
 └── requirements.txt
 ```
 
@@ -111,7 +111,7 @@ pip install nltk fastapi streamlit uvicorn requests pydantic
 ```
 - #### Pour lancer le serveur MLflow :
 ```bash
-uvicorn mlFlow_api:app --host 127.0.0.1 --port 8000 --reload
+uvicorn main_api:app --host 127.0.0.1 --port 8000 --reload
 ```
 - #### Description des routes de l'API FastAPI :
 [GET /docs](http://127.0.0.1:8000/docs#/)
@@ -208,15 +208,17 @@ docker compose -f docker-compose-postgres.yml up -d
 - Utilisation du notebook créé lors du module 2 pour analyser et créer un jeu de données propre (CSV).
 - Réutilisation du notebook créé lors du module 2 pour analyser le jeu de données, comprendre les données et les nettoyer.
 - Le notebook est disponible dans le dossier `notebooks/` sous le nom `ethique_data_cleaning.ipynb`.
-
-
 - J'ai créé un script `python alchemy_api.py clean_dataset` pour nettoyer le jeu de données et le stocker dans le dossier `data/`.
-- 
 - J'ai créé une DB PostgreSQL containerisé que j'ai rempli avec les valeurs  j'ai créé un CRUD sur la ressource Client. J'ai également créé un préprocesseur et j'ai créé un modèle que j'ai entraîné avec les données préprocessées de la DB.
 - J'ai changé le preprocesseur pour s'adapter aux nouvelles colonnes du jeu de données.
-Quelles difficultés j’ai rencontrées dans la journée ? 
+- J'ai créé des scripts utilitaires pour injecter les données `python inject_data.py init`
+- Ajout du module pydantic-sqlalchemy pour gérer les changements de modèles et rendre + dynamique pydantic
+
+## Quelles difficultés j’ai rencontrées ? 
 - l'apprentissage des nouvelles librairies et leur implémentation dans une architecture relativement propre, la réutilisation d"outils déja vu (MLFlow ...). 
-Qu’est-ce que j’ai appris ? 
+- Je suis repassé sur sqllite en db car trop de soucis avec postgres
+- 
+## Qu’est-ce que j’ai appris ? 
 - J'ai appris à utiliser l'ORM SQLAlchemy et à gérer une DB avec.
 - J'ai consolidé les outils à ma disposition pour créer une API REST et un modèle de machine learning : 
   - Simplification de l'initialisation 
@@ -226,15 +228,11 @@ Qu’est-ce que j’ai appris ?
     logger = setup_loguru("logs/alchemy_api.log")
   ```
 
-- Je suis repassé sur sqllite en db car trop de soucis avec postgres
 
-- J'ai créé des scripts utilitaires pour injecter les données `python inject_data.py init`
 
-- Ajout du module pydantic-sqlalchemy pour gérer les changements de modèles et rendre + dynamique pydantic
+
 
 > **Note :** A quoi sert le modèle ?
-
-## Documentation du flux de données et évaluation éthique
 
 ### Flux de données et transformations
 
@@ -257,7 +255,7 @@ Qu’est-ce que j’ai appris ?
 
 - Les colonnes à risque de discrimination ou d’identification ont été supprimées.
 - Les choix de remplissage et de filtrage sont documentés dans le notebook.
-- Les risques de biais restants (ex : sur la région, le niveau d’étude, ou le remplissage par la moyenne) sont identifiés et à surveiller lors de l’utilisation des données.
+- Les risques de biais restants sont identifiés 
 
 ---
 
@@ -274,10 +272,11 @@ Journal de suivi MLflow
 README détaillé
 
 
-- j'ai refacto pour rendre dynamique les usages de colonnes pour l'entrainnement du model
-- J'ai ajouté la stratégy de missing pour les colonnes incompletes
+- j'ai refacto le code pour rendre dynamique les usages de colonnes pour l'entrainnement du model
+- J'ai ajouté la stratégie de missing pour les colonnes incompletes (Remplissage + indication dans une colonne dédié pour savoir si la valeur etait manquante ou pas à la base)
 - entraînement du model : python alchemy_api.py train
-- on est à un entrainnement à cette valeur : 
+  
+## Performance 1er entrainnement :
 ==================Performance for run 0/1===================
 MSE: 77444596.8351, MAE: 6463.7837, R²: 0.3169
 ============================================================
@@ -285,10 +284,20 @@ MSE: 77444596.8351, MAE: 6463.7837, R²: 0.3169
 
 - test avec notebook
 - Codage Codage Codage...
+- Ajout stratégie de transfert de poids en option de settings
 
 
-# Exécution du script d'entraînement en transferant les poids du premier model
+## Exécution du script d'entraînement en transferant les poids du premier model
 60/60 ━━━━━━━━━━━━━━━━━━━━ 0s 1ms/step 
 ==================Performance for run 0/1===================
 MSE: 61944948.3360, MAE: 5717.0758, R²: 0.4537
 ============================================================
+Model enregistré dans models/model_20250620_1536_0_None.pkl
+Courbe de loss : model_20250620_1536_0_None.jpg
+
+
+
+- Création d'un script pour enregistrer le preprocess pour la route de prédiction
+- Changement de type pour la données 
+
+- Utilisation d'une data d'enregirstrement de l'ordre des colonne pour completer la route de prédiction.

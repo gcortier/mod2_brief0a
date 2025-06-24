@@ -1,13 +1,43 @@
 {
-    "run_id": "0eceb24c95c94737a29e6b50b848b0c2", 
-    "timestamp": "2025-06-18T16:57:51.987204", 
+    "run_id": "6b31266aceae4f48bd4c2dcd45bc988f",
+    "timestamp": "2025-06-20T15:37:11.479848",
     "settings": {
-        "training_data": "df_data_all_cleaned.csv",
+        "source_data": "data-all-complete-684bf9cd92797851623245.csv",
+        "training_data": "df_data_all_complete_cleaned.csv",
         "wanted_train_cycle": 1,
         "epochs": 50,
         "train_seed": 42,
-        "numerical_cols": ["age", "taille", "poids", "revenu_estime_mois", "risque_personnel", "loyer_mensuel"],
-        "partials_num_cols": ["score_credit", "historique_credits", "loyer_mensuel"],
-        "categorical_cols": ["sport_licence", "niveau_etude", "region", "smoker", "situation_familiale"]
+        "numerical_cols": [
+            "age",
+            "taille",
+            "poids",
+            "nb_enfants",
+            "quotient_caf",
+            "revenu_estime_mois",
+            "risque_personnel",
+            "loyer_mensuel",
+            "score_credit",
+            "historique_credits",
+            "loyer_mensuel",
+            "score_credit_missing",
+            "historique_credits_missing",
+            "loyer_mensuel_missing"
+        ],
+        "categorical_cols": [
+            "sport_licence",
+            "niveau_etude",
+            "region",
+            "smoker",
+            "situation_familiale"
+        ],
+        "partials_num_cols": [
+            "score_credit",
+            "historique_credits",
+            "loyer_mensuel"
+        ],
+        "transfert_weights": {
+            "active": true,
+            "run_id": "0eceb24c95c94737a29e6b50b848b0c2"
+        }
     }
 }

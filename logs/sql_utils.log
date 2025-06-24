@@ -63,3 +63,5 @@ FROM clients]
 2025-06-18T15:16:50.610574+0200 INFO Route '/loandata' avec id=None
 2025-06-18T15:20:32.553696+0200 INFO Route '/loandata' avec id=None
 2025-06-18T15:42:31.953895+0200 INFO Route '/loandata' avec id=None
+2025-06-20T16:39:26.398030+0200 INFO Route '/current_model' called by 127.0.0.1
+2025-06-23T14:44:28.774957+0200 INFO Route '/loandata' avec id=None
